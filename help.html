@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPS-Tool - Help</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="./css/fontawesome-free-5.15.3-web/css/all.min.css"
+    />
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #2c3e50;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+        }
+
+        .jumbotron {
+            background-color: rgba(58, 155, 158, 0.226);
+            border-radius: 10px;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 2rem 0;
+        }
+
+        .btn-custom {
+            background-color: #2c3e50;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-custom:hover {
+            background-color: #3a4e60;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+        }
+
+        .btn-custom .fas {
+            margin-right: 0.5rem;
+        }
+
+        .accordion .card {
+            margin-bottom: 1rem;
+            border: none;
+        }
+
+        .accordion .card-header {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 1rem;
+            cursor: pointer;
+        }
+
+        .accordion .card-header:hover {
+            background-color: #e9ecef;
+        }
+
+        .accordion .card-body {
+            padding: 1rem;
+        }
+
+        .rolling-line {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .rolling-line hr {
+            flex-grow: 1;
+            margin: 0 10px;
+            border-color: #2c3e50;
+        }
+
+        .rolling-square {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #888;
+            top: -22.5px;
+            animation: roll 15s linear infinite, rotate 2s linear infinite;
+        }
+
+        @keyframes roll {
+            0% {
+                left: -20px;
+            }
+            50% {
+                left: 100%;
+            }
+            100% {
+                left: -20px;
+            }
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .contact-info {
+            margin-top: 3rem;
+        }
+
+        .contact-info .list-group-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info .fas {
+            width: 30px;
+            color: #2c3e50;
+        }
+
+        .img-fluid {
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .img-fluid:hover {
+            transform: scale(1.02);
+        }
+
+        .card-divider {
+            height: 1px;
+            background-color: #e9ecef;
+            margin: 1rem 0;
+        }
+
+        .img-loading {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .img-loading.loaded {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .btn-group .btn {
+            margin: 0 0.25rem;
+        }
+
+        .card-title {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .card-text {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        h1 {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .card-subtitle {
+            font-weight: 500;
+            color: #6c757d;
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding: 2rem 0;
+        }
+
+        .scroll-animation {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .scroll-animation.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark"
+    style="background-color: #2c3e50">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-chart-line mr-2"></i>DPS-Tool
+            </a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarNav"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="run.html">Run</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="example.html">Example</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="help.html">Help</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="jumbotron">
+            <h1 class="text-center">DPS-Tool: Disease Perturbation Scoring Tool</h1>
+            <p class="text-center">
+                DPS-Tool is a bioinformatics tool designed to quantify the disease perturbation level of samples by analyzing gene expression patterns between positive and negative samples, while providing intuitive visualizations to help researchers understand the perturbation patterns under disease conditions. The tool can be used not only to assess the perturbation levels of the same disease in different states, subtypes, and data sources but also to compare perturbations across different diseases. While obtaining the disease perturbation score, DPS-Tool automatically identifies outlier samples, thereby reducing noise interference in subsequent analyses and enhancing result reliability. Additionally, the key gene pairs identified by the tool serve as robust features for distinguishing between positive and negative samples, further advancing disease diagnosis and classification research. The tool also supports perturbation analysis of disease-related gene sets and studies the correlation between perturbation scores and clinical information. Thanks to its strong robustness against batch effects, DPS-Tool can directly integrate data from different platforms and sources to provide comprehensive and accurate analyses.
+            </p>
+        </div>
+
+        <h1 class="text-center mb-4">Help & Documentation</h1>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4 scroll-animation">
+                    <div class="card-body">
+                        <h5 class="card-title">Getting Started</h5>
+                        <p class="card-text">
+                            To get started with DPS-Tool, follow these steps:
+                        </p>
+                        <ol>
+                            <li>Go to the <a href="run.html">Run</a> page;</li>
+                            <li>Upload your expression matrix and sample information files;</li>
+                            <li>Select the appropriate parameters for your analysis;</li>
+                            <li>Click "Run Analysis" to start processing;</li>
+                            <li>Wait for the results to be generated;</li>
+                            <li>View and download your results.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4 scroll-animation">
+                    <div class="card-body">
+                        <h5 class="card-title">Input Files</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">1. Expression Matrix File</h6>
+                        <p class="card-text">
+                            <ul>
+                                <li>
+                                    The gene expression matrix must have "Symbol" as the first
+                                    column for Gene symbols, followed by columns representing
+                                    expression levels for each sample (with sample names as column
+                                    headers).
+                                </li>
+                                <li>
+                                    There should be between 2 and 10 sample categories, with at
+                                    least 10 negative and 10 positive samples. The matrix must
+                                    contain more than 100 genes.
+                                </li>
+                                <li>
+                                    Expression values can be normalized or unnormalized (e.g.,
+                                    Count, TPM, FPKM), and each gene should have a non-zero
+                                    expression in at least 80% of the samples.
+                                </li>
+                                <li>The file must be in 'CSV' format.</li>
+                            </ul>
+                            <img
+                                src="./images/help_01_Expression_Matrix_File_example.png"
+                                alt="Expression matrix file image"
+                                class="img-fluid mt-3 img-loading"
+                                onload="this.classList.add('loaded')"
+                            />
+                        </p>
+                    
+                        <h6 class="card-subtitle mb-2 text-muted">2. Sample Information Matrix File</h6>
+                        <p class="card-text">
+                            <ul>
+                                <li>
+                                    The first column should be the sample name (with the column name
+                                    "Sample"), the second column should be the sample category label
+                                    (with the column name "Class"), and the third column should
+                                    represent the rank corresponding to the sample category label,
+                                    with negative to positive samples labeled as integers starting
+                                    from 0 (column name: "Rank").
+                                </li>
+                                <li>
+                                    The "Sample" column in the sample info matrix must match the
+                                    expression matrix sample names exactly.
+                                </li>
+                                <li>Additional columns like gender and age can be added.</li>
+                                <li>Column names can only consist of letters, numbers, and underscores.</li>
+                                <li>Ensure no NA values in the matrix.</li>
+                                <li>The file must be in 'CSV' format.</li>
+                            </ul>
+                            <img
+                                src="./images/help_02_Sample_Information_Matrix_File_example.png"
+                                alt="Sample information matrix file image"
+                                class="img-fluid mt-3 img-loading"
+                                onload="this.classList.add('loaded')"
+                            />
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4 scroll-animation">
+                    <div class="card-body">
+                        <h5 class="card-title">Parameters</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">1. Negative Sample Class</h6>
+                        <p class="card-text">
+                            Specify the category of negative samples used for analysis (the
+                            leftmost category).
+                        </p>
+
+                        <h6 class="card-subtitle mb-2 text-muted">2. Positive Sample Class</h6>
+                        <p class="card-text">
+                            Specify the category of positive samples used for analysis (the
+                            rightmost category).
+                        </p>
+
+                        <h6 class="card-subtitle mb-2 text-muted">3. Reversal Ratio Threshold</h6>
+                        <p class="card-text">
+                            The threshold used to extract reversal gene pairs. The value must
+                            be between 0.3 and 1, with a default of 0.5. A higher threshold
+                            results in fewer gene pairs.
+                        </p>
+                        
+                        <h6 class="card-subtitle mb-2 text-muted">4. Deduplicate Gene Pairs</h6>
+                        <p class="card-text">
+                            Some gene pairs satisfying the threshold may contain the same
+                            gene. If you choose to deduplicate, only the gene pair with the
+                            highest reversal ratio will be retained. The default is not to
+                            deduplicate.
+                        </p>
+                        
+                        <h6 class="card-subtitle mb-2 text-muted">5. Gene Set File</h6>
+                        <p class="card-text">
+                            Present in a single column, with the column name being the gene
+                            set name. The Gene symbol in this column must exist in the
+                            "Symbol" column of the expression matrix. The file must be in 'CSV' format.
+                        </p>
+                        
+                        <h6 class="card-subtitle mb-2 text-muted">6. Sample Information Category</h6>
+                        <p class="card-text">
+                            Specify the sample information to be used in the analysis. It must
+                            be assigned along with Sample Category and Data Type.
+                        </p>
+                        
+                        <h6 class="card-subtitle mb-2 text-muted">7. Sample Category</h6>
+                        <p class="card-text">
+                            Specify the sample category to be used in the analysis. It must be
+                            assigned along with Sample Information Category and Data Type.
+                        </p>
+                        
+                        <h6 class="card-subtitle mb-2 text-muted">8. Data Type</h6>
+                        <p class="card-text">
+                            Specify the data type of the sample information. It must be
+                            assigned along with Sample Information Category and Sample
+                            Category.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="Output">
+            <div class="col-md-12">
+                <div class="card mb-4 scroll-animation">
+                    <div class="card-body">
+                        <h5 class="card-title">Output</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">1. Gene Pairs Table</h6>
+                        <p class="card-text">
+                            <ul>
+                                <li>
+                                    <strong>Gene1:</strong> The first gene in a gene pair, which is expressed lower than the second gene in negative samples and higher in positive samples.
+                                </li>
+                                <li>
+                                    <strong>Gene2:</strong> The first gene in a gene pair, which is expressed higher than the second gene in negative samples and lower in positive samples.
+                                </li>
+                                <li>
+                                    <strong>ReversalRatio:</strong> The reversal ratio of a gene pair between negative and positive samples, defined as the absolute difference in the proportion of Gene1 < Gene2 between the two sample types.
+                                </li>
+                                <li>
+                                    <strong>ImportanceScore:</strong> Gene pair importance score, where higher scores indicate a greater difference in the scores of the gene pair between the two sample groups. The maximum value is 1.
+                                </li>
+                            </ul>
+                            <p>The table is sorted in descending order based on the 'ImportanceScore' column.</p>
+                        </p>
+                        
+                        <h6 class="card-subtitle mb-2 text-muted">2. DP_Score Table</h6>
+                        <p class="card-text">
+                            Add two new columns to the sample information matrix:
+                            <ul>
+                                <li>
+                                    <strong>DP_Score:</strong> The disease perturbation score for the corresponding sample, ranging from 0 to 1.
+                                </li>
+                                <li>
+                                    <strong>Outlier:</strong> "Yes" indicates an outlier sample.
+                                </li>
+                            </ul>
+                        </p>
+                        
+                        <h6 class="card-subtitle mb-2 text-muted">3. TOP10 Gene Pairs Bar Chart</h6>
+                        <p class="card-text">
+                            The Y-axis represents gene pairs, and the X-axis represents their importance scores. Only the Top 10 gene pairs are displayed; if there are fewer than 10, only the available gene pairs will be shown.
+                        </p>
+                        
+                        <h6 class="card-subtitle mb-2 text-muted">4. DP_Score Bar Chart</h6>
+                        <p class="card-text">
+                            The Y-axis represents the disease perturbation score, and the X-axis represents samples. Different colors are used to distinguish the sample categories, showcasing the score differences among them.
+                        </p>
+                        
+                        <h6 class="card-subtitle mb-2 text-muted">5. DP_Score Boxplot</h6>
+                        <p class="card-text">
+                            The Y-axis represents the disease perturbation score, and the X-axis represents different sample categories, showcasing the differences in scores among them.
+                        </p>
+                        
+                        <h6 class="card-subtitle mb-2 text-muted">6. DP_Score With Sample Information Plot</h6>
+                        <p class="card-text">
+                            <ul>
+                                <li>
+                                    When the sample information is 'Discrete', the relationship between the sample information and the disease perturbation score is displayed using box plots.
+                                </li>
+                                <li>
+                                    When the sample information is 'Continuous', the correlation between the sample information and the disease perturbation score is shown using a scatter plot.
+                                </li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4 scroll-animation">
+                    <div class="card-body">
+                        <h5 class="card-title">Frequently Asked Questions</h5>
+                        <div class="accordion" id="faqAccordion">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            What file formats are supported?
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqAccordion">
+                                    <div class="card-body">
+                                        DPS-Tool supports 'CSV' file format for input files. Ensure your files are properly formatted with delimited by commas.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="headingTwo">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            How long does analysis take?
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+                                    <div class="card-body">
+                                        Analysis typically takes around 2-5 minutes depending on the size of your data and server load. You will be redirected to a results page once processing is complete.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row contact-info">
+            <div class="col-md-12">
+                <div class="card mb-4 scroll-animation">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Have Questions or Need Support?</h5>
+                        <p class="card-text text-center">
+                            If you have any questions about DPS-Tool, need technical support, or want to provide feedback, please feel free to reach out to us using the contact information below.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4 scroll-animation">
+                    <div class="card-body">
+                        <h5 class="card-title">Contact Information</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <i class="fas fa-university"></i> Institute: University of Electronic Science and Technology of China
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-map-marker-alt"></i> Address: No.2006, Xiyuan Ave, West Hi-Tech Zone, Chengdu, Sichuan
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-envelope"></i> Email: hj@uestc.edu.cn
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-globe"></i> Website: <a href="https://i.uestc.edu.cn/hlab/" target="_blank">Dr. Jian Huang's Bioinformatics Lab</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light text-center py-4 mt-5">
+        <div class="container">
+            <div class="rolling-line">
+                <hr />
+                <div class="rolling-square"></div>
+            </div>
+            <p class="text-muted">© 2025 DPS-Tool. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="./js/jquery-3.5.1.slim.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/popper.min.js"></script>
+    <script>
+        // Scroll animation
+        $(window).on('scroll', function() {
+            $('.scroll-animation').each(function() {
+                var elementPosition = $(this).offset().top;
+                var scrollPosition = $(window).scrollTop();
+                var windowHeight = $(window).height();
+
+                if (scrollPosition > elementPosition - windowHeight + 100) {
+                    $(this).addClass('active');
+                }
+            });
+        });
+
+        // Initialize scroll animation for elements in viewport
+        $(document).ready(function() {
+            $('.scroll-animation').each(function() {
+                var elementPosition = $(this).offset().top;
+                var windowHeight = $(window).height();
+
+                if (elementPosition < windowHeight - 100) {
+                    $(this).addClass('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

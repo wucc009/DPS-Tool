@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DPS-Tool - Run Analysis</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="./css/fontawesome-free-5.15.3-web/css/all.min.css"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .navbar {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #2c3e50;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+        }
+
+      .card {
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+        transition: transform 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      .card-title {
+        color: #2c3e50;
+        font-weight: 600;
+      }
+
+      .help-btn {
+        margin-left: 0.5rem;
+      }
+
+      .custom-file-label::after {
+        content: "Browse";
+      }
+
+      .required:invalid + label {
+        color: #dc3545;
+      }
+
+      .required:valid + label {
+        color: #28a745;
+      }
+
+      .advanced-options {
+        display: none;
+      }
+
+      .range-slider {
+        width: 100%;
+      }
+
+      .range-value {
+        width: 60px;
+        margin-left: 10px;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      footer {
+        background-color: #343a40;
+        color: white;
+        padding: 2rem 0;
+      }
+
+      .help-icon {
+        margin-left: 0.5rem;
+        color: #6c757d;
+        cursor: pointer;
+      }
+
+      .help-icon:hover {
+        color: #2c3e50;
+      }
+
+      .rolling-line {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 2rem 0;
+      }
+
+      .rolling-line hr {
+        flex-grow: 1;
+        margin: 0 10px;
+        border-color: #2c3e50;
+      }
+
+      .rolling-square {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: #888;
+        top: -22.5px;
+        animation: roll 15s linear infinite, rotate 2s linear infinite;
+      }
+
+      @keyframes roll {
+        0% {
+          left: -20px;
+        }
+        50% {
+          left: 100%;
+        }
+        100% {
+          left: -20px;
+        }
+      }
+
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .btn {
+        transition: all 0.3s ease;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        font-weight: 500;
+      }
+
+      .btn:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .btn-primary {
+        background-color: #d65c0ad5;
+        border-color: #d65c0ad5;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: #dd6311d5;
+        border-color: #dd6311d5;
+        color: white;
+      }
+
+      .btn-primary:disabled {
+        background-color: #d65c0ad5;
+        border-color: #d65c0ad5;
+        color: white; 
+        opacity: 1;
+      }
+    </style>
+    <style>
+     .range-slider {
+  -webkit-appearance: none; 
+  appearance: none; 
+  width: 100%;
+  height: 5px;
+  border-radius: 5px;
+  background: #d3d3d3; 
+  outline: none;
+  margin-bottom: 10px; 
+}
+
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #2c3e50; 
+  cursor: pointer;
+}
+
+      .range-slider::-moz-range-thumb {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: #2c3e50; 
+        cursor: pointer;
+      }
+
+      .range-slider::-ms-thumb {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: #2c3e50; 
+        cursor: pointer;
+      }
+
+      .range-value {
+        width: 100px;
+        margin-left: 0px; 
+      }
+      .btn-custom {
+        background-color: #2c3e50;
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 0.25rem;
+        font-weight: 600;
+        border: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .btn-custom:hover {
+        background-color: #3a4e60;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-decoration: none;
+      }
+
+      .btn-custom .fas {
+        margin-right: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav
+      class="navbar navbar-expand-lg navbar-dark"
+      style="background-color: #2c3e50"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <i class="fas fa-chart-line mr-2"></i>DPS-Tool
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="run.html">Run</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="example.html">Example</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="help.html">Help</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+      <h1 class="text-center mb-4">Run Analysis</h1>
+
+      <form id="analysisForm" method="POST" enctype="multipart/form-data">
+        <!-- File Upload Section -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">1. Upload Files</h5>
+
+            <div class="form-group">
+              <i
+                class="fas fa-question-circle help-icon"
+                data-toggle="modal"
+                data-target="#expressionMatrixHelpModal"
+              ></i>
+              <label for="expressionMatrix">Expression Matrix File</label>
+              <div class="custom-file">
+                <input
+                  type="file"
+                  class="custom-file-input required"
+                  id="expressionMatrix"
+                  name="expression_matrix"
+                  accept=".csv"
+                  required
+                />
+                <label class="custom-file-label" for="expressionMatrix"
+                  >Choose expression matrix file</label
+                >
+                <small class="text-muted">
+                  <i
+                    class="fas fa-question-circle help-icon"
+                    data-toggle="modal"
+                    data-target="#expressionMatrixexampleHelpModal"
+                  ></i>
+                  <a href="./example/example_expression_matrix.csv" download
+                    >Download example</a
+                  >
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <i
+                class="fas fa-question-circle help-icon"
+                data-toggle="modal"
+                data-target="#sampleInfoHelpModal"
+              ></i>
+              <label for="sampleInfo"> Sample Information Matrix File </label>
+              <div class="custom-file">
+                <input
+                  type="file"
+                  class="custom-file-input required"
+                  id="sampleInfo"
+                  name="sample_info"
+                  accept=".csv"
+                  required
+                />
+                <label class="custom-file-label" for="sampleInfo"
+                  >Choose sample information file</label
+                >
+                <small class="text-muted">
+                  <i
+                    class="fas fa-question-circle help-icon"
+                    data-toggle="modal"
+                    data-target="#sampleInfoexampleHelpModal"
+                  ></i>
+                  <a href="./example/example_sample_information.csv" download
+                    >Download example</a
+                  >
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sample Classes Section -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">2. Sample Classes</h5>
+
+            <div class="form-group">
+              <i
+                class="fas fa-question-circle help-icon"
+                data-toggle="modal"
+                data-target="#negativeClassHelpModal"
+              ></i>
+              <label for="negativeClass"> Negative Sample Class </label>
+              <select
+                class="form-control required"
+                id="negativeClass"
+                name="negative_class"
+                required
+              >
+                <option value="" disabled selected>Select a class</option>
+                <!-- Populated dynamically after sample info upload -->
+              </select>
+            </div>
+
+            <div class="form-group">
+              <i
+                class="fas fa-question-circle help-icon"
+                data-toggle="modal"
+                data-target="#positiveClassHelpModal"
+              ></i>
+              <label for="positiveClass"> Positive Sample Class </label>
+              <select
+                class="form-control required"
+                id="positiveClass"
+                name="positive_class"
+                required
+              >
+                <option value="" disabled selected>Select a class</option>
+                <!-- Populated dynamically after sample info upload -->
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Analysis Parameters Section -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">3. Analysis Parameters</h5>
+
+            <div class="form-group">
+              <i
+                class="fas fa-question-circle help-icon"
+                data-toggle="modal"
+                data-target="#reversionThresholdHelpModal"
+              ></i>
+              <label for="reversionThreshold"> Reversal Ratio Threshold </label>
+              <div class="input-group">
+                <input
+                  type="range"
+                  class="custom-range range-slider"
+                  id="reversionThreshold"
+                  name="reversion_threshold"
+                  min="0.3"
+                  max="1"
+                  step="0.01"
+                  value="0.5"
+                />
+                <input
+                  type="number"
+                  class="form-control range-value"
+                  id="reversionThresholdValue"
+                  name="reversion_threshold_value"
+                  min="0.3"
+                  max="1"
+                  step="0.01"
+                  value="0.5"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <i
+                class="fas fa-question-circle help-icon"
+                data-toggle="modal"
+                data-target="#deduplicateHelpModal"
+              ></i>
+              <label for="deduplicate"> Deduplicate Gene Pairs </label>
+              <select
+                class="form-control required"
+                id="deduplicate"
+                name="deduplicate"
+                required
+              >
+                <option value="True">True</option>
+                <option value="False" selected>False</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Advanced Options Section -->
+        <div class="card mb-4 advanced-options" id="advancedOptionsCard">
+          <div class="card-header bg-white">
+            <h5 class="mb-0">
+              <button
+                class="btn btn-link"
+                style="color: #2c3e50"
+                type="button"
+                data-toggle="collapse"
+                data-target="#advancedOptions"
+              >
+                <i class="fas fa-chevron-down"></i> Advanced Options
+              </button>
+            </h5>
+          </div>
+          <div id="advancedOptions" class="collapse">
+            <div class="card-body">
+              <div class="form-group">
+                <i
+                  class="fas fa-question-circle help-icon"
+                  data-toggle="modal"
+                  data-target="#geneSetFileHelpModal"
+                ></i>
+                <label for="geneSetFile"> Gene Set File (Optional) </label>
+                <div class="custom-file">
+                  <input
+                    type="file"
+                    class="custom-file-input"
+                    id="geneSetFile"
+                    name="gene_set_file"
+                    accept=".csv"
+                  />
+                  <label class="custom-file-label" for="geneSetFile"
+                    >Choose gene set file</label
+                  >
+                  <small class="text-muted">
+                    <i
+                  class="fas fa-question-circle help-icon"
+                  data-toggle="modal"
+                  data-target="#geneSetFileexampleHelpModal"
+                ></i>
+                    <a href="./example/example_gene_set.csv" download
+                      >Download example</a
+                    >
+                  </small>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <i
+                  class="fas fa-question-circle help-icon"
+                  data-toggle="modal"
+                  data-target="#sampleInfoCategoryHelpModal"
+                ></i>
+                <label for="sampleInfoCategory">
+                  Sample Information Category (Optional)
+                </label>
+                <select
+                  class="form-control"
+                  id="sampleInfoCategory"
+                  name="sample_info_category"
+                >
+                  <option value="" disabled selected>Select a category</option>
+                  <!-- Populated dynamically after sample info upload -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <i
+                  class="fas fa-question-circle help-icon"
+                  data-toggle="modal"
+                  data-target="#sampleCategoryHelpModal"
+                ></i>
+                <label for="sampleCategory"> Sample Category (Optional) </label>
+                <select
+                  class="form-control"
+                  id="sampleCategory"
+                  name="sample_category"
+                >
+                  <option value="" disabled selected>Select a category</option>
+                  <!-- Populated dynamically after sample info upload -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <i
+                  class="fas fa-question-circle help-icon"
+                  data-toggle="modal"
+                  data-target="#dataTypeHelpModal"
+                ></i>
+                <label for="dataType"> Data Type (Optional) </label>
+                <select class="form-control" id="dataType" name="data_type">
+                  <option value="" disabled selected>Select a data type</option>
+                  <option value="Discrete">Discrete</option>
+                  <option value="Continuous">Continuous</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group mt-4">
+          <div class="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="showAdvanced"
+              name="show_advanced"
+            />
+            <label class="custom-control-label" for="showAdvanced"
+              >Show advanced options</label
+            >
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button
+            type="submit"
+            class="btn btn-primary btn-lg"
+            id="runButton"
+            disabled
+          >
+            Run Analysis
+          </button>
+          <button
+            type="button"
+            class="btn btn-custom btn-lg ml-2"
+            id="cancelButton"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            class="btn btn-custom btn-lg ml-2"
+            id="exampleButton"
+          >
+            Run Example
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light text-center py-4 mt-5">
+      <div class="container">
+        <div class="rolling-line">
+          <hr />
+          <div class="rolling-square"></div>
+        </div>
+        <p class="text-muted">© 2025 DPS-Tool. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Modal for Expression Matrix Help -->
+    <div
+      class="modal fade"
+      id="expressionMatrixHelpModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="expressionMatrixHelpModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="expressionMatrixHelpModalLabel">
+              Expression Matrix File
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ol>
+              <li>
+                The gene expression matrix must have "Symbol" as the first
+                column for Gene symbols, followed by columns representing
+                expression levels for each sample (with sample names as column
+                headers).
+              </li>
+              <li>
+                There should be between 2 and 10 sample categories, with at
+                least 10 negative and 10 positive samples. The matrix must
+                contain more than 100 genes.
+              </li>
+              <li>
+                Expression values can be normalized or unnormalized (e.g.,
+                Count, TPM, FPKM), and each gene should have a non-zero
+                expression in at least 80% of the samples.
+              </li>
+              <li>The file must be in 'CSV' format.</li>
+            </ol>
+            <p>Example:</p>
+            <img
+              src="./images/run_01_Expression_Matrix_File.png"
+              alt="Expression matrix file image"
+              class="img-fluid mt-3"
+            />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="expressionMatrixexampleHelpModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="expressionMatrixexampleHelpModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="expressionMatrixexampleHelpModalLabel">
+              Expression Matrix Example
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Transcriptomic data of islet samples from 58 patients who
+              underwent pancreatic resection (GSE76895), including 30 cases with
+              type 2 diabetes (T2D, positive samples) and 28 non-diabetes cases
+              (ND, negative samples).
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Sample Information Help -->
+    <div
+      class="modal fade"
+      id="sampleInfoHelpModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="sampleInfoHelpModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="sampleInfoHelpModalLabel">
+              Sample Information Matrix File
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ol>
+              <li>
+                The first column should be the sample name (with the column name
+                "Sample"), the second column should be the sample category label
+                (with the column name "Class"), and the third column should
+                represent the rank corresponding to the sample category label,
+                with negative to positive samples labeled as integers starting
+                from 0 (column name: "Rank").
+              </li>
+              <li>
+                The "Sample" column in the sample info matrix must match the
+                expression matrix sample names exactly.
+              </li>
+              <li>Additional columns like gender and age can be added.</li>
+              <li>Column names can only consist of letters, numbers, and underscores.</li>
+              <li>Ensure no NA values in the matrix.</li>
+              <li>The file must be in 'CSV' format.</li>
+            </ol>
+            <p>Example:</p>
+            <img
+              src="./images/run_02_Sample_Information_Matrix_File.png"
+              alt="Sample information matrix file image"
+              class="img-fluid mt-3"
+            />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="sampleInfoexampleHelpModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="sampleInfoexampleHelpModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="sampleInfoexampleHelpModalLabel">
+              Sample Information Matrix Example
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <li><strong>Sample:</strong> Names of the 58 samples.</li>
+              <li>
+                <strong>Class:</strong> Category corresponding to each sample;
+                T2D represents type 2 diabetes, while ND represents
+                non-diabetes.
+              </li>
+              <li>
+                <strong>Rank:</strong> Label corresponding to the sample
+                category, represented as an integer starting from 0.
+              </li>
+              <li>
+                <strong>Fasting_glucose:</strong> The fasting blood glucose
+                value of the sample; higher values are typically positively
+                correlated with the severity of diabetes.
+              </li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Negative Class Help -->
+    <div
+      class="modal fade"
+      id="negativeClassHelpModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="negativeClassHelpModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="negativeClassHelpModalLabel">
+              Negative Sample Class
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Specify the category of negative samples used for analysis (the
+              leftmost category).
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Positive Class Help -->
+    <div
+      class="modal fade"
+      id="positiveClassHelpModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="positiveClassHelpModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="positiveClassHelpModalLabel">
+              Positive Sample Class
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Specify the category of positive samples used for analysis (the
+              rightmost category).
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Reversion Threshold Help -->
+    <div
+      class="modal fade"
+      id="reversionThresholdHelpModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="reversionThresholdHelpModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="reversionThresholdHelpModalLabel">
+              Reversal Ratio Threshold
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              The threshold used to extract reversal gene pairs. The value must
+              be between 0.3 and 1, with a default of 0.5. A higher threshold
+              results in fewer gene pairs.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Deduplicate Help -->
+    <div
+      class="modal fade"
+      id="deduplicateHelpModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="deduplicateHelpModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deduplicateHelpModalLabel">
+              Deduplicate Gene Pairs
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Some gene pairs satisfying the threshold may contain the same
+              gene. If you choose to deduplicate, only the gene pair with the
+              highest reversal ratio will be retained. The default is not to
+              deduplicate.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Gene Set File Help -->
+    <div
+      class="modal fade"
+      id="geneSetFileHelpModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="geneSetFileHelpModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="geneSetFileHelpModalLabel">
+              Gene Set File (Optional)
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ol>
+              <li>
+                Present in a single column, with the column name being the gene
+                set name. The Gene symbol in this column must exist in the
+                "Symbol" column of the expression matrix.
+              </li>
+              <li>The file must be in 'CSV' format.</li>
+            </ol>
+            <p>Example:</p>
+            <img
+              src="./images/run_03_Gene_Set_File.png"
+              alt="Expression matrix file image"
+              class="img-fluid mt-3"
+            />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+    class="modal fade"
+    id="geneSetFileexampleHelpModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="geneSetFileexampleHelpModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="geneSetFileexampleHelpModalLabel">
+            Gene Set File Example
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body"
+          <p><strong>Beta identity and maturity:</strong> β cells are closely related to type 2 diabetes, so it is important to analyze the perturbation degree of the Beta identity and maturity gene sets.</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Modal for Sample Info Category Help -->
+    <div
+      class="modal fade"
+      id="sampleInfoCategoryHelpModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="sampleInfoCategoryHelpModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="sampleInfoCategoryHelpModalLabel">
+              Sample Information Category (Optional)
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Specify the sample information to be used in the analysis. It must
+              be assigned along with Sample Category and Data Type.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Sample Category Help -->
+    <div
+      class="modal fade"
+      id="sampleCategoryHelpModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="sampleCategoryHelpModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="sampleCategoryHelpModalLabel">
+              Sample Category (Optional)
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Specify the sample category to be used in the analysis. It must be
+              assigned along with Sample Information Category and Data Type.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Data Type Help -->
+    <div
+      class="modal fade"
+      id="dataTypeHelpModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="dataTypeHelpModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="dataTypeHelpModalLabel">
+              Data Type (Optional)
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Specify the data type of the sample information. It must be
+              assigned along with Sample Information Category and Sample
+              Category.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript -->`
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/popper.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        // Show/hide advanced options
+        $("#showAdvanced").change(function () {
+          if (this.checked) {
+            $("#advancedOptionsCard").show();
+            $("#advancedOptions").collapse("show");
+          } else {
+            $("#advancedOptionsCard").hide();
+          }
+        });
+
+        // Sync slider and input value
+        $("#reversionThreshold").on("input", function () {
+          $("#reversionThresholdValue").val(this.value);
+        });
+
+        $("#reversionThresholdValue").on("input", function () {
+          $("#reversionThreshold").val(this.value);
+        });
+
+        // Update form status
+        function updateFormStatus() {
+          const allRequiredFilled = $(".required")
+            .toArray()
+            .every((input) => {
+              if (input.type === "file") {
+                return input.files.length > 0;
+              } else if (input.tagName === "SELECT") {
+                return input.value !== "";
+              }
+              return true;
+            });
+
+          $("#runButton").prop("disabled", !allRequiredFilled);
+        }
+
+        // Update form status on input change
+        $(".required").on("change", updateFormStatus);
+
+        // Handle file uploads
+        $(".custom-file-input").on("change", function () {
+          const fileName = $(this).val().split("\\").pop();
+          $(this)
+            .next(".custom-file-label")
+            .addClass("selected")
+            .html(fileName);
+        });
+
+        // Cancel button functionality
+        $("#cancelButton").click(function () {
+          $("#analysisForm")[0].reset();
+          $("#advancedOptionsCard").hide();
+          $("#runButton").prop("disabled", true);
+        });
+      });
+    </script>
+    <script>
+      // Initialize tooltips
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+
+      // Carousel auto-slide
+      $(".carousel").carousel({
+        interval: 5000,
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const input = document.getElementById("reversionThresholdValue");
+
+        input.addEventListener("input", function () {
+          const value = parseFloat(this.value);
+          const min = parseFloat(this.min);
+          const max = parseFloat(this.max);
+
+          if (isNaN(value)) {
+            this.value = this.defaultValue;
+            return;
+          }
+
+          if (value < min) {
+            this.value = min;
+          } else if (value > max) {
+            this.value = max;
+          }
+        });
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const exampleButton = document.getElementById("exampleButton");
+        exampleButton.addEventListener("click", function () {
+          window.location.href = "example.html";
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        let expressionMatrixHeaders = null; 
+        let expressionMatrixLines = []; 
+        // Handle expression matrix file upload
+        $("#expressionMatrix").on("change", function () {
+          const file = this.files[0];
+          if (!file) return;
+
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const content = e.target.result;
+            expressionMatrixLines = content.split("\n"); 
+            const lines = content.split("\n");
+
+            // Check if file has required columns
+            const headers = lines[0].split(",");
+
+            // 1. Check file extension
+            if (!file.name.endsWith(".csv")) {
+              alert("Error: File must be a 'CSV' file.");
+              resetFileInput("#expressionMatrix");
+              return;
+            }
+
+            // 2. Check for empty values
+            let hasEmptyValues = false;
+            for (let i = 0; i < lines.length; i++) {
+              if (lines[i].trim()) {
+                const columns = lines[i].split(",");
+                if (columns.some((cell) => cell.trim() === "")) {
+                  hasEmptyValues = true;
+                  break;
+                }
+              }
+            }
+            if (hasEmptyValues) {
+              alert("Error: The expression matrix contains empty values.");
+              resetFileInput("#expressionMatrix");
+              return;
+            }
+
+            // 3. Check first column name
+            if (headers[0].trim() !== "Symbol") {
+              alert("Error: The first column name must be 'Symbol'.");
+              resetFileInput("#expressionMatrix");
+              return;
+            }
+
+            // 4. Check number of columns
+            if (headers.length <= 21) {
+              alert(
+                "Error: The sample number of expression matrix is insufficient."
+              );
+              resetFileInput("#expressionMatrix");
+              return;
+            }
+
+            // 5. Check number of rows
+            const rowCount = lines.filter((line) => line.trim() !== "").length;
+            if (rowCount <= 101) {
+              alert("Error: Expression matrix gene number is insufficient.");
+              resetFileInput("#expressionMatrix");
+              return;
+            }
+
+            // 6. Check non-zero expression values per gene
+            let hasLowNonZeroValues = false;
+            for (let i = 1; i < lines.length; i++) {
+              if (lines[i].trim()) {
+                const columns = lines[i].split(",");
+                const nonZeroCount = columns
+                  .slice(1)
+                  .filter((value) => value.trim() !== "0").length;
+                const nonZeroPercentage = nonZeroCount / (columns.length - 1);
+                if (nonZeroPercentage < 0.8) {
+                  hasLowNonZeroValues = true;
+                  break;
+                }
+              }
+            }
+            if (hasLowNonZeroValues) {
+              alert(
+                "Error: Each gene must have at least 80% non-zero expression values."
+              );
+              resetFileInput("#expressionMatrix");
+              return;
+            }
+
+            // If all checks passed
+            expressionMatrixHeaders = headers;
+            updateFormStatus();
+          };
+
+          reader.readAsText(file);
+        });
+
+        // Handle sample information matrix file upload
+        $("#sampleInfo").on("change", function () {
+          const file = this.files[0];
+          if (!file) return;
+
+          if (!expressionMatrixHeaders) {
+            alert("Error: Expression matrix file must be uploaded first.");
+            resetFileInput("#sampleInfo");
+            return;
+          }
+
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const content = e.target.result;
+            const lines = content.split("\n");
+
+            // Check if file has required columns
+            const headers = lines[0].split(",");
+
+            // 1. Check file extension
+            if (!file.name.endsWith(".csv")) {
+              alert("Error: File must be a 'CSV' file.");
+              resetFileInput("#sampleInfo");
+              return;
+            }
+
+            // 2. Check for empty values
+            let hasEmptyValues = false;
+            for (let i = 0; i < lines.length; i++) {
+              if (lines[i].trim()) {
+                const columns = lines[i].split(",");
+                if (columns.some((cell) => cell.trim() === "")) {
+                  hasEmptyValues = true;
+                  break;
+                }
+              }
+            }
+            if (hasEmptyValues) {
+              alert(
+                "Error: The sample information matrix contains empty values."
+              );
+              resetFileInput("#sampleInfo");
+              return;
+            }
+
+            // 3. Check first three column names
+            if (
+              headers.length < 3 ||
+              headers[0].trim() !== "Sample" ||
+              headers[1].trim() !== "Class" ||
+              headers[2].trim() !== "Rank"
+            ) {
+              alert(
+                "Error: The first three column names must be 'Sample', 'Class', and 'Rank'."
+              );
+              resetFileInput("#sampleInfo");
+              return;
+            }
+
+             // 4. Check column names for allowed characters
+    const invalidHeaders = headers.filter(header => {
+      return !/^[a-zA-Z0-9_]+$/.test(header.trim());
+    });
+
+    if (invalidHeaders.length > 0) {
+      alert(
+        "Error: Column names must only consist of letters, numbers, and underscores. Invalid columns: " +
+        invalidHeaders.join(", ")
+      );
+      resetFileInput("#sampleInfo");
+      return;
+    }
+            // 4. Check Sample column matches expression matrix columns (excluding first column)
+            const sampleColumnIndex = headers.indexOf("Sample");
+            const sampleValues = new Set();
+            for (let i = 1; i < lines.length; i++) {
+              if (lines[i].trim()) {
+                const columns = lines[i].split(",");
+                sampleValues.add(columns[sampleColumnIndex].trim());
+              }
+            }
+            const expressionMatrixSampleValues = new Set(
+              expressionMatrixHeaders.slice(1).map((name) => name.trim())
+            );
+
+            if (
+              sampleValues.size !== expressionMatrixSampleValues.size ||
+              ![...sampleValues].every((value) =>
+                expressionMatrixSampleValues.has(value)
+              )
+            ) {
+              alert(
+                "Error: The samples of the sample information matrix are not exactly consistent with the samples of the expression matrix."
+              );
+              resetFileInput("#sampleInfo");
+              return;
+            }
+
+            const classColumnIndex = headers.indexOf("Class");
+            const classValues = new Set();
+            for (let i = 1; i < lines.length; i++) {
+              if (lines[i].trim()) {
+                const columns = lines[i].split(",");
+                classValues.add(columns[classColumnIndex].trim());
+              }
+            }
+            const uniqueClassCount = classValues.size;
+
+            // 8. Check Class column unique values count is between 2 and 10
+            if (classValues.size < 2 || classValues.size > 10) {
+              alert(
+                "Error: 'Class' column must have between 2 and 10 unique values."
+              );
+              resetFileInput("#sampleInfo");
+              return;
+            }
+
+            const rankColumnIndex = headers.indexOf("Rank");
+            const rankValues = new Set();
+            const rankCounts = {}; // Store count of each rank value
+            for (let i = 1; i < lines.length; i++) {
+              if (lines[i].trim()) {
+                const columns = lines[i].split(",");
+                const rankValue = columns[rankColumnIndex].trim();
+                rankValues.add(rankValue);
+                rankCounts[rankValue] = (rankCounts[rankValue] || 0) + 1;
+              }
+            }
+
+            const expectedRankValues = new Set();
+            for (let i = 0; i < uniqueClassCount; i++) {
+              expectedRankValues.add(i.toString());
+            }
+
+            if (rankValues.size !== expectedRankValues.size) {
+              alert(
+                "Error: Rank values must be integers from 0 to " +
+                  (uniqueClassCount - 1) +
+                  "."
+              );
+              resetFileInput("#sampleInfo");
+              return;
+            }
+
+            for (const value of rankValues) {
+              if (!expectedRankValues.has(value)) {
+                alert(
+                  "Error: Rank values must be integers from 0 to " +
+                    (uniqueClassCount - 1) +
+                    "."
+                );
+                resetFileInput("#sampleInfo");
+                return;
+              }
+            }
+
+            const uniqueRankClassPairs = new Set();
+            for (let i = 1; i < lines.length; i++) {
+              if (lines[i].trim()) {
+                const columns = lines[i].split(",");
+                const classValue = columns[classColumnIndex].trim();
+                const rankValue = columns[rankColumnIndex].trim();
+                uniqueRankClassPairs.add(`${classValue}-${rankValue}`);
+              }
+            }
+
+            if (uniqueRankClassPairs.size !== uniqueClassCount) {
+              alert("Error: The 'Rank' and 'Class' columns do not match.");
+              resetFileInput("#sampleInfo");
+              return;
+            }
+            // 9. Check Rank 0 and max Rank values have counts >= 10
+            // New check: Ensure Rank 0 count and other Rank values count are both greater than 10
+            if (rankCounts["0"] <= 10) {
+              alert(
+                "Error: The number of samples in the negative or positive category is insufficient and should be greater than or equal to 10."
+              );
+              resetFileInput("#sampleInfo");
+              return;
+            }
+
+            // Check that all other ranks (except 0) have more than 10 occurrences
+            for (const rank in rankCounts) {
+              if (rank !== "0" && rankCounts[rank] <= 10) {
+                alert(
+                  "Error: The number of samples in the negative or positive category is insufficient and should be greater than or equal to 10."
+                );
+                resetFileInput("#sampleInfo");
+                return;
+              }
+            }
+
+            // If all checks passed
+            updateFormStatus();
+          };
+
+          reader.readAsText(file);
+        });
+
+        // Handle Gene Set File upload
+        $("#geneSetFile").on("change", function () {
+          const file = this.files[0];
+          if (!file) return;
+
+          if (!expressionMatrixHeaders) {
+            alert("Error: Expression matrix file must be uploaded first.");
+            resetFileInput("#geneSetFile");
+            return;
+          }
+
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const content = e.target.result;
+            const lines = content.split("\n");
+
+            if (!file.name.endsWith(".csv")) {
+              alert("Error: File must be a CSV file.");
+              resetFileInput("#geneSetFile");
+              return;
+            }
+
+            let hasMultipleColumns = false;
+            for (let i = 0; i < lines.length; i++) {
+              if (lines[i].trim()) {
+                const columns = lines[i].split(",");
+                if (columns.length > 1) {
+                  hasMultipleColumns = true;
+                  break;
+                }
+              }
+            }
+            if (hasMultipleColumns) {
+              alert("Error: Gene set file must have only one column.");
+              resetFileInput("#geneSetFile");
+              return;
+            }
+
+            const symbolSet = new Set();
+            for (let i = 1; i < expressionMatrixLines.length; i++) {
+              if (expressionMatrixLines[i].trim()) {
+                const columns = expressionMatrixLines[i].split(",");
+                symbolSet.add(columns[0].trim());
+              }
+            }
+
+            let hasInvalidSymbols = false;
+            for (let i = 1; i < lines.length; i++) {
+              if (lines[i].trim()) {
+                const symbol = lines[i].trim();
+                if (!symbolSet.has(symbol)) {
+                  hasInvalidSymbols = true;
+                  break;
+                }
+              }
+            }
+            if (hasInvalidSymbols) {
+              alert(
+                "Error: Some symbols in gene set file do not exist in the expression matrix 'Symbol' column."
+              );
+              resetFileInput("#geneSetFile");
+              return;
+            }
+
+            geneSetFile = file;
+            updateFormStatus();
+          };
+
+          reader.readAsText(file);
+        });
+
+        // Reset file input
+        function resetFileInput(inputId) {
+          $(inputId).val("");
+          $(inputId)
+            .next(".custom-file-label")
+            .html("Choose expression matrix file");
+        }
+
+        // Update form status
+        function updateFormStatus() {
+          const allRequiredFilled = $(".required")
+            .toArray()
+            .every((input) => {
+              if (input.type === "file") {
+                return input.files.length > 0;
+              } else if (input.tagName === "SELECT") {
+                return input.value !== "";
+              }
+              return true;
+            });
+
+          $("#runButton").prop("disabled", !allRequiredFilled);
+        }
+
+        // Get expression matrix headers (assuming this function is implemented elsewhere)
+        function getExpressionMatrixHeaders() {
+          // This function should return the headers from the expression matrix file
+          // For demonstration, return null if not available
+          return null;
+        }
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        // Handle sample information file upload
+        $("#sampleInfo").on("change", function () {
+          const file = this.files[0];
+          if (!file) return;
+
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const content = e.target.result;
+            const lines = content.split("\n");
+
+            // Check if file has required columns
+            const headers = lines[0].split(",");
+            const requiredColumns = ["Sample", "Class", "Rank"];
+
+            // Get unique classes from Class column
+            const classColumnIndex = headers.indexOf("Class");
+            const classes = new Set();
+
+            for (let i = 1; i < lines.length; i++) {
+              if (lines[i].trim()) {
+                const columns = lines[i].split(",");
+                classes.add(columns[classColumnIndex].trim());
+              }
+            }
+
+            // Populate Negative and Positive Sample Class dropdowns
+            const classArray = Array.from(classes);
+            populateDropdown("#negativeClass", classArray);
+            populateDropdown("#positiveClass", classArray);
+            populateDropdown("#sampleCategory", classArray);
+
+            // Get optional columns for Sample Information Category
+            const optionalColumns = headers.filter(
+              (col) => !["Sample", "Class", "Rank"].includes(col)
+            );
+
+            populateDropdown("#sampleInfoCategory", optionalColumns);
+          };
+
+          reader.readAsText(file);
+        });
+
+        function populateDropdown(selector, values) {
+          const dropdown = $(selector);
+          dropdown.empty();
+
+          if (values.length === 0) {
+            dropdown.append(
+              $("<option>", {
+                value: "",
+                text: "No data available",
+                disabled: true,
+                selected: true,
+              })
+            );
+            return;
+          }
+
+          dropdown.append(
+            $("<option>", {
+              value: "",
+              text: "Select an option",
+              disabled: true,
+              selected: true,
+            })
+          );
+
+          values.forEach((value) => {
+            const cleanedValue = value.trim();
+            dropdown.append(
+              $("<option>", {
+                value: cleanedValue,
+                text: cleanedValue,
+              })
+            );
+          });
+        }
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+
+    $("#analysisForm").on("submit", function (e) {
+        e.preventDefault(); 
+
+        const sampleInfoCategory = $("#sampleInfoCategory").val();
+        const sampleCategory = $("#sampleCategory").val();
+        const dataType = $("#dataType").val();
+
+        const allEmpty = !sampleInfoCategory && !sampleCategory && !dataType;
+        const allFilled = sampleInfoCategory && sampleCategory && dataType;
+
+        if (!allEmpty && !allFilled) {
+            alert(
+                "Error: Sample Information Category, Sample Category, and Data Type must be either all filled or all empty."
+            );
+            return; 
+        }
+
+        const formData = new FormData(this);
+
+$.ajax({
+    url: "upload.php",
+    type: "POST",
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function (response) {
+        var taskId = response.task_id;
+        window.location.href = "waiting.php?task_id=" + taskId; 
+    },
+    error: function (xhr, status, error) {
+        alert("Error: " + error);
+    }
+});
+    });
+});
+    </script>
+  </body>
+</html>
