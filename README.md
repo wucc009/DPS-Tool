@@ -115,3 +115,7 @@ The Y-axis represents the disease perturbation score, and the X-axis represents 
 | `upload.php` | Upload handler that performs file validation, renaming, and so on. |
 | `waiting.php` | Waiting page; auto-redirects to results once ready. |
 
+---
+Paper describing this work has been received in *Frontiers of Computer Science* (FCS) special column “Code & Data”.  
+
+**Cited as:** Changchun WU, Xueqin XIE, Ziru HUANG, Hao LIN, Jian HUANG. DPS-Tool: An online service platform for disease perturbation scoring. *Front. Comput. Sci.*, 2025, DOI: [10.1007/s11704-025-50841-y](https://doi.org/10.1007/s11704-025-50841-y)
